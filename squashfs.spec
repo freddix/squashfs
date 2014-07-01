@@ -1,13 +1,11 @@
 Summary:	Set of tools which creates squashfs filesystem
 Name:		squashfs
 Version:	4.3
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		Base/Utilities
-#Source0:	http://downloads.sourceforge.net/squashfs/%{name}%{version}.tar.gz
-# git://git.kernel.org/pub/scm/fs/squashfs/squashfs-tools.git
-Source0:	%{name}-tools.tar.xz
-# Source0-md5:	8c4f89163b55e5027038f81988667a5f
+Source0:	http://downloads.sourceforge.net/squashfs/%{name}%{version}.tar.gz
+# Source0-md5:	d92ab59aabf5173f2a59089531e30dbf
 URL:		http://squashfs.sourceforge.net/
 BuildRequires:	lz4-devel
 BuildRequires:	lzo-devel
@@ -31,14 +29,12 @@ constrained block device/memory systems (e.g. embedded systems) where
 low overhead is needed.
 
 %prep
-#%setup -qn %{name}%{version}
-%setup -qn %{name}-tools
+%setup -qn %{name}%{version}
 
-%{__sed} -i 's|-O2 |%{rpmcflags}|g' Makefile
+%{__sed} -i 's|-O2 |%{rpmcflags}|g' squashfs-tools/Makefile
 
 %build
-#%{__make} -C squashfs-tools	\
-%{__make} \
+%{__make} -C squashfs-tools	\
 	CC="%{__cc}"		\
 	LZ4_SUPPORT=1		\
 	LZO_SUPPORT=1		\
@@ -47,10 +43,8 @@ low overhead is needed.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-#install -D squashfs-tools/mksquashfs $RPM_BUILD_ROOT%{_sbindir}/mksquashfs
-#install    squashfs-tools/unsquashfs $RPM_BUILD_ROOT%{_sbindir}
-install -D mksquashfs $RPM_BUILD_ROOT%{_sbindir}/mksquashfs
-install unsquashfs $RPM_BUILD_ROOT%{_sbindir}
+install -D squashfs-tools/mksquashfs $RPM_BUILD_ROOT%{_sbindir}/mksquashfs
+install squashfs-tools/unsquashfs $RPM_BUILD_ROOT%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
