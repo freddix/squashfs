@@ -1,7 +1,7 @@
 Summary:	Set of tools which creates squashfs filesystem
 Name:		squashfs
 Version:	4.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base/Utilities
 Source0:	http://downloads.sourceforge.net/squashfs/%{name}%{version}.tar.gz
